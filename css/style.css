@@ -5333,3 +5333,475 @@ body.mentor-fs-open {
     aspect-ratio: 4 / 5;
   }
 }
+
+/* ========== Mentor Showcase - 3D Scroll (About Page) ========== */
+/* 左侧简介 + 右侧 3D 倾斜照片堆叠，滚轮/拖拽循环切换，简介联动 */
+
+.mentor-showcase-section {
+  background: #0a0a0a;
+  color: #ffffff;
+  padding: 120px 0 140px;
+  overflow: hidden;
+}
+
+.mentor-showcase-section .section-title {
+  color: #ffffff;
+}
+
+.mentor-showcase-section .section-subtitle {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mentor-showcase-section .section-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mentor-showcase {
+  display: grid;
+  grid-template-columns: minmax(340px, 42%) 1fr;
+  align-items: center;
+  gap: 48px;
+  min-height: 600px;
+}
+
+/* ---------- 左侧：信息区 ---------- */
+
+.ms-info {
+  position: relative;
+  z-index: 2;
+}
+
+.ms-counter {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.ms-counter-current {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.ms-counter-line {
+  width: 48px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.ms-text {
+  margin: 34px 0 46px;
+  transition: opacity 0.26s ease, transform 0.26s ease;
+}
+
+.ms-text.ms-switching {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.ms-role {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 7px 16px;
+  margin-bottom: 22px;
+}
+
+.ms-name {
+  font-size: clamp(34px, 3.6vw, 54px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.ms-bio {
+  font-size: 15px;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 460px;
+  margin-bottom: 30px;
+}
+
+.ms-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 5px;
+  transition: border-color var(--transition-fast), gap var(--transition-fast);
+}
+
+.ms-more:hover {
+  border-color: #ffffff;
+  gap: 14px;
+}
+
+.ms-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.ms-arrow {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.ms-arrow:hover {
+  background: #ffffff;
+  color: #0a0a0a;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.ms-progress {
+  flex: 0 0 110px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.ms-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 25%;
+  background: #ffffff;
+  transition: width 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ---------- 右侧：3D 照片舞台 ---------- */
+
+.ms-stage {
+  position: relative;
+  height: 640px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ms-stage:active {
+  cursor: grabbing;
+}
+
+.ms-stack {
+  position: absolute;
+  inset: 0;
+  transform: perspective(1500px) rotateY(-16deg) rotateZ(5deg);
+  transform-style: preserve-3d;
+}
+
+.ms-photo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(330px, 26vw);
+  aspect-ratio: 3 / 4;
+  transform: translate(-50%, -50%);
+  transition: transform 0.75s cubic-bezier(0.77, 0, 0.175, 1),
+              opacity 0.75s cubic-bezier(0.77, 0, 0.175, 1),
+              filter 0.75s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform, opacity, filter;
+}
+
+.ms-photo-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.4);
+  object-fit: cover;
+  display: block;
+}
+
+.ms-photo-silhouette {
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  width: 78%;
+  height: auto;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.14);
+}
+
+.ms-photo-num {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ms-photo.is-active .ms-photo-img {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 40px 110px rgba(0, 0, 0, 0.75), 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.ms-hint {
+  position: absolute;
+  right: 8px;
+  bottom: -8px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 1024px) {
+  .mentor-showcase {
+    grid-template-columns: minmax(300px, 46%) 1fr;
+    gap: 32px;
+  }
+
+  .ms-photo {
+    width: min(280px, 30vw);
+  }
+
+  .ms-stage {
+    height: 560px;
+  }
+}
+
+@media (max-width: 820px) {
+  .mentor-showcase {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .ms-info {
+    order: 2;
+    margin-top: 8px;
+  }
+
+  .ms-stage {
+    order: 1;
+    height: 460px;
+  }
+
+  .ms-stack {
+    transform: perspective(1200px) rotateY(-10deg) rotateZ(3deg);
+  }
+
+  .ms-photo {
+    width: min(230px, 52vw);
+  }
+
+  .ms-text {
+    margin: 24px 0 34px;
+  }
+
+  .mentor-showcase-section {
+    padding: 90px 0 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ms-stage {
+    height: 400px;
+  }
+
+  .ms-name {
+    font-size: 30px;
+  }
+
+  .ms-hint {
+    display: none;
+  }
+}
+
+/* 照片裁切位置优化：优先保留人物面部区域 */
+img.ms-photo-img {
+  object-position: center 22%;
+}
+
+/* ========== Hero Aurora Silk Canvas ========== */
+#hero-aurora-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 极光生效时弱化旧装饰层 */
+.hero-immersive.has-aurora .hero-orb {
+  display: none;
+}
+
+.hero-immersive.has-aurora .hero-grid {
+  opacity: 0.35;
+}
+
+/* ========== Hero 光线乱窜 & 满天星 + 左下角文字布局 ========== */
+#hero-streak-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 文字内容移至左下角（参考视频布局） */
+.hero-immersive .hero-content {
+  position: absolute;
+  left: clamp(24px, 6vw, 96px);
+  bottom: clamp(96px, 15vh, 170px);
+  right: auto;
+  text-align: left;
+  padding: 0;
+  max-width: 780px;
+}
+
+.hero-immersive .hero-label {
+  margin-bottom: 22px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hero-immersive .hero-title {
+  font-size: clamp(3.2rem, 8.5vw, 7.5rem);
+  margin-bottom: 24px;
+}
+
+.hero-immersive .hero-subtitle {
+  margin: 0 0 44px;
+  max-width: 540px;
+  text-align: left;
+}
+
+.hero-immersive .hero-cta {
+  justify-content: flex-start;
+}
+
+/* 滚动提示移到右下角，避免与左下文字冲突 */
+.hero-immersive .hero-scroll-bottom {
+  left: auto;
+  right: clamp(24px, 4vw, 64px);
+  transform: none;
+}
+
+@media (max-width: 640px) {
+  .hero-immersive .hero-content {
+    bottom: clamp(110px, 18vh, 160px);
+    max-width: calc(100% - 48px);
+  }
+
+  .hero-immersive .hero-title {
+    font-size: clamp(2.6rem, 13vw, 4rem);
+  }
+}
+
+.hero-immersive.has-streak .hero-orb {
+  display: none;
+}
+
+.hero-immersive.has-streak .hero-grid {
+  opacity: 0.3;
+}
+
+/* ========== 首页 CTA 横幅：黑底白字 ========== */
+.cta-banner {
+  background: #0a0a0a;
+  padding: 140px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-banner .cta-content h2 {
+  color: #ffffff;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 26px;
+}
+
+.cta-banner .cta-content p {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin: 0 0 46px;
+}
+
+/* 黑底上按钮反转为白底黑字 */
+.cta-banner .btn-primary {
+  background: #ffffff;
+  color: #0a0a0a;
+  border-color: #ffffff;
+}
+
+.cta-banner .btn-primary:hover {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(255, 255, 255, 0.88);
+  color: #0a0a0a;
+}
+
+@media (max-width: 768px) {
+  .cta-banner {
+    padding: 96px 24px;
+  }
+}
+
+/* ========== 合作页 CTA：黑底白字 ========== */
+.coop-cta {
+  background: #0a0a0a;
+}
+
+.coop-cta .section-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.coop-cta .section-title {
+  color: #ffffff;
+}
+
+.coop-cta .section-subtitle {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.coop-cta .btn-primary {
+  background: #ffffff;
+  color: #0a0a0a;
+  border-color: #ffffff;
+}
+
+.coop-cta .btn-primary:hover {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(255, 255, 255, 0.88);
+  color: #0a0a0a;
+}

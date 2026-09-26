@@ -66,8 +66,8 @@
     </div>
   </nav>
 
-  <!-- Mentor Team Section - Card Carousel -->
-  <section id="mentors" class="section mentors-preview-section">
+  <!-- Mentor Team Section - 3D Scroll Showcase -->
+  <section id="mentors" class="section mentor-showcase-section">
     <div class="container">
       <div class="section-header fade-in">
         <span class="section-label">Mentor Team</span>
@@ -76,63 +76,55 @@
       </div>
     </div>
 
-    <div class="mentor-preview-carousel fade-in">
-      <div class="mentor-preview-track" id="mentorsCarouselTrack">
-        <div class="mentor-preview-card" onclick="location.href='mentors.html'">
-          <div class="mentor-preview-img placeholder-pulse" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);"></div>
-          <div class="mentor-preview-overlay"></div>
-          <div class="mentor-preview-info">
-            <span class="mentor-preview-num">01</span>
-            <h3 class="mentor-preview-name">导师姓名一</h3>
-            <p class="mentor-preview-title">教授 / 博士生导师</p>
-            <span class="mentor-preview-more">查看详情 →</span>
-          </div>
+    <div class="mentor-showcase container fade-in" id="mentorShowcase">
+      <!-- 左侧：导师信息（随照片滚动联动切换） -->
+      <div class="ms-info">
+        <div class="ms-counter">
+          <span class="ms-counter-current" id="msCurrent">01</span>
+          <span class="ms-counter-line"></span>
+          <span class="ms-counter-total">04</span>
         </div>
 
-        <div class="mentor-preview-card" onclick="location.href='mentors.html'">
-          <div class="mentor-preview-img placeholder-pulse" style="background: linear-gradient(135deg, #0f0f0f 0%, #1f1f1f 100%);"></div>
-          <div class="mentor-preview-overlay"></div>
-          <div class="mentor-preview-info">
-            <span class="mentor-preview-num">02</span>
-            <h3 class="mentor-preview-name">导师姓名二</h3>
-            <p class="mentor-preview-title">副教授 / 硕士生导师</p>
-            <span class="mentor-preview-more">查看详情 →</span>
-          </div>
+        <div class="ms-text" id="msText">
+          <span class="ms-role" id="msRole">教授 / 博士生导师</span>
+          <h3 class="ms-name" id="msName">导师姓名一</h3>
+          <p class="ms-bio" id="msBio">长期从事智能机器人与人机交互研究，主持多项国家级科研项目，致力于让技术与人文在产品中完美融合，是工作室学术方向的领路人。</p>
+          <a class="ms-more" href="mentors.html">查看详情 <span class="ms-more-arrow">→</span></a>
         </div>
 
-        <div class="mentor-preview-card" onclick="location.href='mentors.html'">
-          <div class="mentor-preview-img placeholder-pulse" style="background: linear-gradient(135deg, #181818 0%, #282828 100%);"></div>
-          <div class="mentor-preview-overlay"></div>
-          <div class="mentor-preview-info">
-            <span class="mentor-preview-num">03</span>
-            <h3 class="mentor-preview-name">导师姓名三</h3>
-            <p class="mentor-preview-title">教授 / 博士生导师</p>
-            <span class="mentor-preview-more">查看详情 →</span>
-          </div>
-        </div>
-
-        <div class="mentor-preview-card" onclick="location.href='mentors.html'">
-          <div class="mentor-preview-img placeholder-pulse" style="background: linear-gradient(135deg, #0d0d0d 0%, #222222 100%);"></div>
-          <div class="mentor-preview-overlay"></div>
-          <div class="mentor-preview-info">
-            <span class="mentor-preview-num">04</span>
-            <h3 class="mentor-preview-name">导师姓名四</h3>
-            <p class="mentor-preview-title">讲师 / 研究骨干</p>
-            <span class="mentor-preview-more">查看详情 →</span>
-          </div>
+        <div class="ms-controls">
+          <button class="ms-arrow" id="msPrev" aria-label="上一位导师">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 15l-6-6-6 6"/></svg>
+          </button>
+          <div class="ms-progress"><div class="ms-progress-fill" id="msProgress"></div></div>
+          <button class="ms-arrow" id="msNext" aria-label="下一位导师">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
         </div>
       </div>
 
-      <button class="mentor-preview-arrow prev" id="mentorsCarouselPrev">←</button>
-      <button class="mentor-preview-arrow next" id="mentorsCarouselNext">→</button>
-    </div>
-
-    <div class="container">
-      <div class="mentor-preview-dots" id="mentorsCarouselDots">
-        <span class="mentor-preview-dot active" data-index="0"></span>
-        <span class="mentor-preview-dot" data-index="1"></span>
-        <span class="mentor-preview-dot" data-index="2"></span>
-        <span class="mentor-preview-dot" data-index="3"></span>
+      <!-- 右侧：导师照片 3D 循环滚动区 -->
+      <div class="ms-stage" id="msStage">
+        <div class="ms-stack" id="msStack">
+          <!-- 替换真实照片：直接把 src 换成对应导师的照片文件即可 -->
+          <div class="ms-photo" data-index="0">
+            <img class="ms-photo-img" src="../images/mentors/mentor-1.jpg" alt="导师姓名一">
+            <span class="ms-photo-num">01</span>
+          </div>
+          <div class="ms-photo" data-index="1">
+            <img class="ms-photo-img" src="../images/mentors/mentor-2.jpg" alt="导师姓名二">
+            <span class="ms-photo-num">02</span>
+          </div>
+          <div class="ms-photo" data-index="2">
+            <img class="ms-photo-img" src="../images/mentors/mentor-3.jpg" alt="导师姓名三">
+            <span class="ms-photo-num">03</span>
+          </div>
+          <div class="ms-photo" data-index="3">
+            <img class="ms-photo-img" src="../images/mentors/mentor-4.jpg" alt="导师姓名四">
+            <span class="ms-photo-num">04</span>
+          </div>
+        </div>
+        <div class="ms-hint">滚轮 · 拖拽 切换导师</div>
       </div>
     </div>
   </section>
@@ -303,103 +295,124 @@
 
   <script src="../js/main.js"></script>
   <script>
-    // Mentor cards carousel
+    // Mentor 3D scroll showcase —— 左侧简介随右侧照片循环滚动联动
     (function() {
-      const track = document.getElementById('mentorsCarouselTrack');
-      const cards = track ? track.querySelectorAll('.mentor-preview-card') : [];
-      const dots = document.querySelectorAll('.mentor-preview-dot');
-      const prevBtn = document.getElementById('mentorsCarouselPrev');
-      const nextBtn = document.getElementById('mentorsCarouselNext');
-      if (!track || cards.length === 0) return;
+      var MENTORS = [
+        { name: '导师姓名一', role: '教授 / 博士生导师', bio: '长期从事智能机器人与人机交互研究，主持多项国家级科研项目，致力于让技术与人文在产品中完美融合，是工作室学术方向的领路人。' },
+        { name: '导师姓名二', role: '副教授 / 硕士生导师', bio: '专注服务设计与用户体验方向，拥有丰富的产学研合作经验，指导学生多次获得国内外设计大奖，擅长将商业需求转化为设计价值。' },
+        { name: '导师姓名三', role: '教授 / 博士生导师', bio: '深耕智能硬件与产品创新设计领域，推动多项设计成果转化落地，主导校企合作研发项目，为工作室搭建起产业与课堂的桥梁。' },
+        { name: '导师姓名四', role: '讲师 / 研究骨干', bio: '聚焦 AI 与 VR/AR 前沿技术应用，负责工作室创新项目孵化与学生竞赛指导，陪伴同学们从灵感到成品的每一次突破。' }
+      ];
 
-      let currentIndex = 0;
-      const total = cards.length;
-      let isDragging = false;
-      let startX = 0;
-      let currentTranslate = 0;
-      let prevTranslate = 0;
+      var stage = document.getElementById('msStage');
+      var photos = Array.prototype.slice.call(document.querySelectorAll('#msStack .ms-photo'));
+      var text = document.getElementById('msText');
+      var nameEl = document.getElementById('msName');
+      var roleEl = document.getElementById('msRole');
+      var bioEl = document.getElementById('msBio');
+      var currentEl = document.getElementById('msCurrent');
+      var progressEl = document.getElementById('msProgress');
+      var prevBtn = document.getElementById('msPrev');
+      var nextBtn = document.getElementById('msNext');
+      if (!stage || photos.length === 0) return;
 
-      function getCardWidth() {
-        const container = track.parentElement;
-        const containerWidth = container.offsetWidth;
-        let visible = 3;
-        if (window.innerWidth <= 768) visible = 2;
-        if (window.innerWidth <= 480) visible = 1;
-        const gap = 24;
-        const cardWidth = (containerWidth - (visible - 1) * gap) / visible;
-        return { cardWidth, gap, visible };
+      var total = photos.length;
+      var current = 0;      // 无限递增/递减的虚拟索引，渲染时取模
+      var locked = false;   // 切换节流锁
+      var step = 260;       // 照片间垂直间距（按照片高度动态计算）
+
+      function measure() {
+        var h = photos[0].offsetHeight || 420;
+        step = h * 0.5;
       }
 
-      function goToSlide(index) {
-        const { cardWidth, gap, visible } = getCardWidth();
-        const maxIndex = Math.max(0, total - visible);
-        currentIndex = Math.max(0, Math.min(index, maxIndex));
-        const offset = currentIndex * (cardWidth + gap);
-        track.style.transform = `translateX(-${offset}px)`;
-        currentTranslate = -offset;
-        prevTranslate = -offset;
-
-        dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
-        if (prevBtn) prevBtn.classList.toggle('disabled', currentIndex === 0);
-        if (nextBtn) nextBtn.classList.toggle('disabled', currentIndex >= maxIndex);
+      function render() {
+        photos.forEach(function(ph, i) {
+          var p = ((i - current) % total + total) % total;
+          var off = p > total / 2 ? p - total : p;   // 归一化到 [-2, 2]
+          var abs = Math.abs(off);
+          var y = off * step;
+          var scale = abs === 0 ? 1 : (abs === 1 ? 0.86 : 0.72);
+          var opacity = abs >= 2 ? 0 : (abs === 1 ? 0.6 : 1);
+          ph.style.transform = 'translate(-50%, -50%) translateY(' + y + 'px) scale(' + scale + ')';
+          ph.style.opacity = opacity;
+          ph.style.zIndex = String(20 - abs);
+          ph.style.filter = abs === 0 ? 'brightness(1)' : 'brightness(0.55)';
+          ph.style.pointerEvents = abs <= 1 ? 'auto' : 'none';
+          ph.classList.toggle('is-active', abs === 0);
+        });
       }
 
-      if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-      if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+      function updateInfo() {
+        var idx = ((current % total) + total) % total;
+        var m = MENTORS[idx];
+        text.classList.add('ms-switching');
+        setTimeout(function() {
+          nameEl.textContent = m.name;
+          roleEl.textContent = m.role;
+          bioEl.textContent = m.bio;
+          currentEl.textContent = ('0' + (idx + 1)).slice(-2);
+          progressEl.style.width = ((idx + 1) / total * 100) + '%';
+          text.classList.remove('ms-switching');
+        }, 260);
+      }
 
-      dots.forEach(dot => {
-        dot.addEventListener('click', function() {
-          goToSlide(parseInt(this.getAttribute('data-index')));
+      function go(delta) {
+        if (locked) return;
+        locked = true;
+        setTimeout(function() { locked = false; }, 650);
+        current += delta;
+        render();
+        updateInfo();
+      }
+
+      prevBtn.addEventListener('click', function() { go(-1); });
+      nextBtn.addEventListener('click', function() { go(1); });
+
+      // 点击非激活照片也可以切换
+      photos.forEach(function(ph, i) {
+        ph.addEventListener('click', function() {
+          var p = ((i - current) % total + total) % total;
+          var off = p > total / 2 ? p - total : p;
+          if (off !== 0) go(off > 0 ? 1 : -1);
         });
       });
 
-      // Drag
-      let dragIndex = 0;
-      function dragStart(e) {
-        isDragging = true;
-        startX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-        dragIndex = currentIndex;
-        track.style.transition = 'none';
-        track.classList.add('dragging');
-      }
-      function dragMove(e) {
-        if (!isDragging) return;
-        const currentX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-        track.style.transform = `translateX(${prevTranslate + (currentX - startX)}px)`;
-      }
-      function dragEnd() {
-        if (!isDragging) return;
-        isDragging = false;
-        track.style.transition = '';
-        track.classList.remove('dragging');
-        const { cardWidth } = getCardWidth();
-        const moved = currentTranslate - prevTranslate;
-        if (moved < -cardWidth * 0.2) goToSlide(dragIndex + 1);
-        else if (moved > cardWidth * 0.2) goToSlide(dragIndex - 1);
-        else goToSlide(dragIndex);
-      }
-
-      track.addEventListener('mousedown', dragStart);
-      window.addEventListener('mousemove', dragMove);
-      window.addEventListener('mouseup', dragEnd);
-      track.addEventListener('touchstart', dragStart, { passive: true });
-      track.addEventListener('touchmove', dragMove, { passive: true });
-      track.addEventListener('touchend', dragEnd);
-
-      // Wheel
-      let wheelTimer;
-      track.addEventListener('wheel', function(e) {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) return;
+      // 滚轮循环滚动
+      stage.addEventListener('wheel', function(e) {
         e.preventDefault();
-        clearTimeout(wheelTimer);
-        wheelTimer = setTimeout(() => {
-          if (e.deltaX > 30) goToSlide(currentIndex + 1);
-          else if (e.deltaX < -30) goToSlide(currentIndex - 1);
-        }, 50);
+        if (Math.abs(e.deltaY) < 8) return;
+        go(e.deltaY > 0 ? 1 : -1);
       }, { passive: false });
 
-      window.addEventListener('resize', () => goToSlide(currentIndex));
-      goToSlide(0);
+      // 拖拽 / 触摸滑动
+      var dragging = false, startY = 0;
+      stage.addEventListener('pointerdown', function(e) {
+        dragging = true; startY = e.clientY;
+        stage.setPointerCapture && stage.setPointerCapture(e.pointerId);
+      });
+      stage.addEventListener('pointerup', function(e) {
+        if (!dragging) return;
+        dragging = false;
+        var dy = startY - e.clientY;
+        if (Math.abs(dy) > 36) go(dy > 0 ? 1 : -1);
+      });
+      stage.addEventListener('pointercancel', function() { dragging = false; });
+
+      // 键盘方向键
+      document.addEventListener('keydown', function(e) {
+        var rect = stage.getBoundingClientRect();
+        var visible = rect.top < window.innerHeight && rect.bottom > 0;
+        if (!visible) return;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') go(1);
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') go(-1);
+      });
+
+      window.addEventListener('resize', function() { measure(); render(); });
+
+      measure();
+      render();
+      updateInfo();
     })();
   </script>
 </body>
